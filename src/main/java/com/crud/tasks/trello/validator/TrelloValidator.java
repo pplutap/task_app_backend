@@ -16,10 +16,6 @@ import java.util.stream.Collectors;
 public class TrelloValidator {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TrelloValidator.class);
-    @Autowired
-    private TrelloService trelloService;
-    @Autowired
-    private TrelloMapper trelloMapper;
 
     public void validateCard(final TrelloCard trelloCard) {
             if(trelloCard.getName().contains("test")) {

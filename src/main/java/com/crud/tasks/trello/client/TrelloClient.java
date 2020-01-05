@@ -43,32 +43,26 @@ public class TrelloClient {
         try {
             TrelloBoardDto[] boardsResponse = restTemplate.getForObject(getUrl(), TrelloBoardDto[].class);
             return Arrays.asList(Optional.ofNullable(boardsResponse).orElse(someArray));
-        }  catch (RestClientException e) {
+        } catch (RestClientException e) {
             LOGGER.error(e.getMessage(), e);
             return new ArrayList<>();
         }
     }
-//        TrelloBoardDto[] boardsResponse = restTemplate.getForObject(getUrl(), TrelloBoardDto[].class);
-//        if (boardsResponse != null) {
-//            return Arrays.asList(boardsResponse);
-//        }
-//        return new ArrayList<>();
 
 
-        public CreatedTrelloCardDto createNewCard(TrelloCardDto trelloCardDto) {
+    public CreatedTrelloCardDto createNewCard(TrelloCardDto trelloCardDto) {
 
-            URI url = UriComponentsBuilder.fromHttpUrl(trelloConfig.getTrelloApiEndpoint() + "/cards")
-                    .queryParam("key", trelloConfig.getTrelloAppKey())
-                    .queryParam("token", trelloConfig.getTrelloToken())
-                    .queryParam("name", trelloCardDto.getName())
-                    .queryParam("desc", trelloCardDto.getDescription())
-                    .queryParam("pos", trelloCardDto.getPos())
-                    .queryParam("idList", trelloCardDto.getListId())
-                  //  .queryParam("badges", trelloCardDto.getBadges())
-                    .build().encode().toUri();
-            System.out.println(url);
+        URI url = UriComponentsBuilder.fromHttpUrl(trelloConfig.getTrelloApiEndpoint() + "/cards")
+                .queryParam("key", trelloConfig.getTrelloAppKey())
+                .queryParam("token", trelloConfig.getTrelloToken())
+                .queryParam("name", trelloCardDto.getName())
+                .queryParam("desc", trelloCardDto.getDescription())
+                .queryParam("pos", trelloCardDto.getPos())
+                .queryParam("idList", trelloCardDto.getListId())
+                .build().encode().toUri();
+        System.out.println(url);
 
         return restTemplate.postForObject(url, null, CreatedTrelloCardDto.class);
-        }
     }
+}
 
